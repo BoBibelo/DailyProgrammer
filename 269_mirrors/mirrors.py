@@ -55,14 +55,12 @@ def compute_value(board, letter):
         x, y, d = ord(letter) - ord('N'), 12, 0
     else:
         return letter
-    print(letter)
     return compute_value_(board, x, y, d)
 
 
 def compute_value_(board, x, y, d):
     flag = False
     while True:
-        print('{0} {1}'.format(x, y))
         if (x > 12 or x < 0 or y > 12 or y < 0) and flag:
             return get_letter(x, y)
 
