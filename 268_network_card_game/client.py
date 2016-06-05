@@ -15,12 +15,12 @@ def start_client(MAX_BUFFER_SIZE=4096):
     try:
         client_socket.connect((host, port))
     except:
-        print('No server found for {0}, {1}.'.format(host, port), 
+        print('No server found for {0}, {1}.'.format(host, port),
               file=sys.stderr)
         exit(1)
 
     # Prez
-    username = input('Who are you ? ').strip()
+    username = input('Who are you ?\n> ').strip()
     client_socket.send('USER {0}'.format(username).encode('utf-8'))
     out_msg = client_socket.recv(MAX_BUFFER_SIZE).decode('utf-8').rstrip()
     print(out_msg)
@@ -28,6 +28,9 @@ def start_client(MAX_BUFFER_SIZE=4096):
     while True:
         in_msg = input('> ')
         client_socket.send(in_msg.encode('utf-8'))
+
+        if in_msg.startswith('QUIT'):
+            break
 
         out_msg = client_socket.recv(MAX_BUFFER_SIZE).decode('utf-8').rstrip()
         print(out_msg)
