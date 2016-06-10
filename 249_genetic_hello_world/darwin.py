@@ -27,8 +27,8 @@ def mix_pop(pop : Sequence[str]) -> Sequence[str]:
 
 
 def make_child(lparent : str, rparent : str) -> str:
-    pos = random.randint(0, len(TARGET) - 1)
-    return mutate(lparent[:pos] + rparent[pos:])
+    return mutate(''.join([random.choice([c1, c2])
+                           for c1, c2 in zip(lparent, rparent)]))
 
 
 def mutate(word : str) -> str:
@@ -42,7 +42,7 @@ def generate(pop : Sequence[str], best : int, target : str) -> Sequence[str]:
     return mix_pop(pop[:best])
 
 
-pop_size = 100
+pop_size = 4000
 best = int(pop_size * (20 / 100)) # Best 20%
 pop = init_population(pop_size, len(TARGET))
 gen = 1
